@@ -8,6 +8,7 @@ import pl.nakodach.pl.nakodach.heroesofddd.recruitment.*
 import pl.nakodach.pl.nakodach.heroesofddd.recruitment.DwellingCommand.*
 import pl.nakodach.pl.nakodach.heroesofddd.recruitment.DwellingEvent.*
 import pl.nakodach.pl.nakodach.heroesofddd.shared.kernel.Amount
+import pl.nakodach.pl.nakodach.heroesofddd.shared.kernel.Cost
 import pl.nakodach.pl.nakodach.heroesofddd.shared.kernel.Cost.Companion.resources
 import pl.nakodach.pl.nakodach.heroesofddd.shared.kernel.CreatureId
 import pl.nakodach.pl.nakodach.heroesofddd.shared.kernel.ResourceType.CRYSTAL
@@ -260,9 +261,9 @@ class DwellingTest {
 
 typealias HeroId = String;
 typealias PlayerId = String;
+typealias Hero2 = Hero;
 
 data class Hero(
     val id: HeroId,
-    val player: PlayerId?
-    // other properties...
+    val player: PlayerId
 )
