@@ -256,3 +256,13 @@ class DwellingTest {
     private fun stateFrom(givenEvents: Collection<DwellingEvent>): Dwelling =
         givenEvents.fold(dwelling.initialState) { state, event -> dwelling.evolve(state, event) }
 }
+
+
+typealias HeroId = String;
+typealias PlayerId = String;
+
+data class Hero(
+    val id: HeroId,
+    val player: PlayerId?
+    // other properties...
+)
