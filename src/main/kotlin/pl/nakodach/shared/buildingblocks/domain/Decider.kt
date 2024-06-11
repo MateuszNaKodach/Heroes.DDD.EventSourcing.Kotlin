@@ -1,18 +1,18 @@
 package pl.nakodach.pl.nakodach.shared.buildingblocks.domain
 
-interface IDecider<in C, S, E> {
-    val decide: (C, S) -> List<E>
-    val evolve: (S, E) -> S
-    val initialState: S
+interface IDecider<in Command, State, Event> {
+    val decide: (Command, State) -> List<Event>
+    val evolve: (State, Event) -> State
+    val initialState: State
 
-    fun decide(events: Collection<E>, command: C) = decide(command, evolve(events))
+    fun decide(events: Collection<Event>, command: Command) = decide(command, evolve(events))
 
-    private fun evolve(givenEvents: Collection<E>): S =
+    private fun evolve(givenEvents: Collection<Event>): State =
         givenEvents.fold(initialState) { state, event -> evolve(state, event) }
 }
 
-data class Decider<in C, S, E>(
-    override val decide: (C, S) -> List<E>,
-    override val evolve: (S, E) -> S,
-    override val initialState: S
-) : IDecider<C, S, E>;
+data class Decider<in Command, State, Event>(
+    override val decide: (Command, State) -> List<Event>,
+    override val evolve: (State, Event) -> State,
+    override val initialState: State
+) : IDecider<Command, State, Event>;
