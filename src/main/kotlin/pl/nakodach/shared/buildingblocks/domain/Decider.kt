@@ -10,4 +10,12 @@ data class Decider<in C, S, E>(
     override val decide: (C, S) -> List<E>,
     override val evolve: (S, E) -> S,
     override val initialState: S
-) : IDecider<C, S, E>
+) : IDecider<C, S, E> {
+
+    fun decide(
+        events: Collection<E>, command: C
+    ): List<E> = decide(command, evolve(events))
+
+    private fun evolve(givenEvents: Collection<E>): S =
+        givenEvents.fold(initialState) { state, event -> evolve(state, event) }
+}
