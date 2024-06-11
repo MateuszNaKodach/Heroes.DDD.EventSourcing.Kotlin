@@ -32,7 +32,7 @@ class DwellingTest {
         val whenCommand = BuildDwelling(dwellingId, angelId, angelCostPerTroop)
 
         // then
-        val thenEvents = decide(givenEvents, whenCommand)
+        val thenEvents = dwelling.decide(givenEvents, whenCommand)
         val expectedEvent = DwellingBuilt(dwellingId, angelId, angelCostPerTroop)
         assertThat(thenEvents).containsExactly(expectedEvent)
     }
@@ -48,7 +48,7 @@ class DwellingTest {
         val whenCommand = BuildDwelling(dwellingId, angelId, angelCostPerTroop)
 
         // then
-        val thenEvents = decide(givenEvents, whenCommand)
+        val thenEvents = dwelling.decide(givenEvents, whenCommand)
         assertThat(thenEvents).isEmpty()
     }
 
@@ -61,7 +61,7 @@ class DwellingTest {
         val whenCommand = RecruitCreature(dwellingId, angelId, Amount.of(1))
 
         // then
-        val thenEvents = decide(givenEvents, whenCommand)
+        val thenEvents = dwelling.decide(givenEvents, whenCommand)
         assertThat(thenEvents).isEmpty()
     }
 
@@ -76,7 +76,7 @@ class DwellingTest {
         val whenCommand = RecruitCreature(dwellingId, angelId, Amount.of(1))
 
         // then
-        val thenEvents = decide(givenEvents, whenCommand)
+        val thenEvents = dwelling.decide(givenEvents, whenCommand)
         assertThat(thenEvents).isEmpty()
     }
 
@@ -93,7 +93,7 @@ class DwellingTest {
         val whenCommand = RecruitCreature(dwellingId, angelId, Amount.of(1))
 
         // then
-        val thenEvents = decide(givenEvents, whenCommand)
+        val thenEvents = dwelling.decide(givenEvents, whenCommand)
         val expectedRecruited = CreatureRecruited(
             dwellingId, angelId, Amount.of(1), resources(GOLD to 3000, CRYSTAL to 1)
         )
@@ -112,7 +112,7 @@ class DwellingTest {
         val whenCommand = RecruitCreature(dwellingId, angelId, Amount.of(3))
 
         // then
-        val thenEvents = decide(givenEvents, whenCommand)
+        val thenEvents = dwelling.decide(givenEvents, whenCommand)
         val expectedRecruited = CreatureRecruited(
             dwellingId, angelId, Amount.of(3), resources(GOLD to 9000, CRYSTAL to 3)
         )
@@ -131,7 +131,7 @@ class DwellingTest {
         val whenCommand = RecruitCreature(dwellingId, angelId, recruit = Amount.of(2))
 
         // then
-        val thenEvents = decide(givenEvents, whenCommand)
+        val thenEvents = dwelling.decide(givenEvents, whenCommand)
         val expectedRecruited = CreatureRecruited(
             dwellingId, angelId, recruited = Amount.of(2), totalCost = resources(GOLD to 6000, CRYSTAL to 2)
         )
@@ -151,7 +151,7 @@ class DwellingTest {
         val whenCommand = RecruitCreature(dwellingId, angelId, Amount.of(2))
 
         // then
-        val thenEvents = decide(givenEvents, whenCommand)
+        val thenEvents = dwelling.decide(givenEvents, whenCommand)
         assertThat(thenEvents).isEmpty()
     }
 
@@ -167,7 +167,7 @@ class DwellingTest {
         val whenCommand = RecruitCreature(dwellingId, archangelId, Amount.of(1))
 
         // then
-        val thenEvents = decide(givenEvents, whenCommand)
+        val thenEvents = dwelling.decide(givenEvents, whenCommand)
         assertThat(thenEvents).isEmpty()
     }
 
@@ -186,7 +186,7 @@ class DwellingTest {
         val whenCommand = RecruitCreature(dwellingId, archangelId, Amount.of(1))
 
         // then
-        val thenEvents = decide(givenEvents, whenCommand)
+        val thenEvents = dwelling.decide(givenEvents, whenCommand)
         assertThat(thenEvents).isEmpty()
     }
 
@@ -208,7 +208,7 @@ class DwellingTest {
         val whenCommand = RecruitCreature(dwellingId, archangelId, Amount.of(1))
 
         // then
-        val thenEvents = decide(givenEvents, whenCommand)
+        val thenEvents = dwelling.decide(givenEvents, whenCommand)
         assertThat(thenEvents).isEmpty()
     }
 
@@ -227,7 +227,7 @@ class DwellingTest {
         val whenCommand = RecruitCreature(dwellingId, angelId, Amount.of(1))
 
         // then
-        val thenEvents = decide(givenEvents, whenCommand)
+        val thenEvents = dwelling.decide(givenEvents, whenCommand)
         val expectedEvent = CreatureRecruited(
             dwellingId, angelId, recruited = Amount.of(1), totalCost = resources(GOLD to 3000, CRYSTAL to 1)
         )
@@ -245,17 +245,11 @@ class DwellingTest {
         val whenCommand = IncreaseAvailableCreatures(dwellingId, angelId, Amount.of(3))
 
         // then
-        val thenEvents = decide(givenEvents, whenCommand)
+        val thenEvents = dwelling.decide(givenEvents, whenCommand)
         val expectedEvent = AvailableCreaturesChanged(dwellingId, angelId, changedTo = Amount.of(3))
         assertThat(thenEvents).containsExactly(expectedEvent)
     }
 
-    private fun decide(
-        givenEvents: Collection<DwellingEvent>, whenCommand: DwellingCommand
-    ): List<DwellingEvent> = dwelling.decide(whenCommand, stateFrom(givenEvents))
-
-    private fun stateFrom(givenEvents: Collection<DwellingEvent>): Dwelling =
-        givenEvents.fold(dwelling.initialState) { state, event -> dwelling.evolve(state, event) }
 }
 
 
