@@ -267,3 +267,29 @@ data class Hero(
     val id: HeroId,
     val player: PlayerId
 )
+
+//interface Dwelling {
+//    fun canRecruit(creatureId: CreatureId, availableTroops: Amount): Boolean
+//}
+//
+//data class CreatureDwelling(val creatureId: CreatureId, val costPerTroop: Cost, val availableTroops: Amount) : Dwelling {
+//    override fun canRecruit(creatureId: CreatureId, availableTroops: Amount): Boolean {
+//        return this.creatureId == creatureId && this.availableTroops >= availableTroops
+//    }
+//
+//    fun upgradedWith(upgradedCreatureId: CreatureId, costPerTroop: Cost, availableTroops: Amount): CreatureDwelling {
+//        return CreatureDwelling(upgradedCreatureId, costPerTroop, availableTroops)
+//    }
+//
+//}
+//
+//data class MultiCreatureDwelling(val dwellings: List<CreatureDwelling>) : Dwelling {
+//    override fun canRecruit(creatureId: CreatureId, availableTroops: Amount): Boolean {
+//        return dwellings.any { it.canRecruit(creatureId, availableTroops) }
+//    }
+//
+//    fun upgradedWith(upgradedCreatureId: CreatureId, costPerTroop: Cost, availableTroops: Amount): MultiCreatureDwelling {
+//        return MultiCreatureDwelling(dwellings.map { it.upgradedWith(upgradedCreatureId, costPerTroop, availableTroops) })
+//    }
+//
+//}
